@@ -1,26 +1,121 @@
-@import "tailwindcss";
+@import 'tailwindcss';
+@import 'tw-animate-css';
 
+@custom-variant dark (&:is(.dark *));
+
+/* Creating a playful, Duolingo-inspired color theme with bright colors */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: oklch(0.99 0.01 100);
+  --foreground: oklch(0.25 0.02 260);
+  
+  /* Bright green primary (Duolingo-inspired) */
+  --primary: oklch(0.68 0.18 150);
+  --primary-foreground: oklch(1 0 0);
+  
+  /* Soft purple secondary */
+  --secondary: oklch(0.85 0.08 280);
+  --secondary-foreground: oklch(0.25 0.02 260);
+  
+  /* Bright accent colors for gamification */
+  --accent: oklch(0.75 0.20 45);
+  --accent-foreground: oklch(1 0 0);
+  
+  /* Success green for correct answers */
+  --success: oklch(0.70 0.18 145);
+  --success-foreground: oklch(1 0 0);
+  
+  /* Error red for incorrect answers */
+  --error: oklch(0.65 0.22 25);
+  --error-foreground: oklch(1 0 0);
+  
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.25 0.02 260);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.25 0.02 260);
+  --muted: oklch(0.95 0.01 260);
+  --muted-foreground: oklch(0.55 0.02 260);
+  --border: oklch(0.90 0.01 260);
+  --input: oklch(0.95 0.01 260);
+  --ring: oklch(0.68 0.18 150);
+  
+  --radius: 1rem;
 }
 
 @theme inline {
+  --font-sans: 'Geist', 'Geist Fallback';
+  --font-mono: 'Geist Mono', 'Geist Mono Fallback';
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-error: var(--error);
+  --color-error-foreground: var(--error-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  
+  /* Adding 3D flip utilities for flashcard */
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+  
+  .transform-style-3d {
+    transform-style: preserve-3d;
+  }
+  
+  .backface-hidden {
+    backface-visibility: hidden;
+  }
+  
+  /* Adding shake animation for incorrect answers */
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-10px); }
+    20%, 40%, 60%, 80% { transform: translateX(10px); }
+  }
+  
+  .animate-shake {
+    animation: shake 0.5s ease-in-out;
   }
 }
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.animate-fadeIn {
+  animation: fadeIn 0.3s ease-out forwards;
+}
+@keyframes scaleIn {
+  0% { transform: scale(0.7); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.animate-scaleIn {
+  animation: scaleIn 0.35s ease-out;
 }
