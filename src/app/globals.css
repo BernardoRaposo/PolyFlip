@@ -119,3 +119,56 @@
 .animate-scaleIn {
   animation: scaleIn 0.35s ease-out;
 }
+
+/* Aurora animated background */
+.aurora-bg {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at 20% 30%, rgba(100, 200, 255, 0.25), transparent 60%),
+              radial-gradient(circle at 80% 70%, rgba(180, 120, 255, 0.25), transparent 60%);
+  animation: auroraMove 18s ease-in-out infinite alternate;
+  pointer-events: none;
+  z-index: -2;
+}
+
+/* Floating glow blobs */
+.blob {
+  position: fixed;
+  width: 420px;
+  height: 420px;
+  filter: blur(120px);
+  opacity: 0.35;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.blob-1 {
+  background: #7dd3fc; /* sky-300 */
+  top: 10%;
+  left: 5%;
+  animation: blobFloat 25s ease-in-out infinite;
+}
+
+.blob-2 {
+  background: #a78bfa; /* violet-400 */
+  bottom: 10%;
+  right: 8%;
+  animation: blobFloat 28s ease-in-out infinite reverse;
+}
+
+@keyframes auroraMove {
+  from {
+    filter: hue-rotate(0deg) blur(40px);
+  }
+  to {
+    filter: hue-rotate(30deg) blur(40px);
+  }
+}
+
+@keyframes blobFloat {
+  0%   { transform: translate(0px, 0px); }
+  50%  { transform: translate(60px, -40px); }
+  100% { transform: translate(0px, 0px); }
+}
+
